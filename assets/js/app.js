@@ -1,13 +1,39 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.getElementById("menu-toggle");
+    const nav = document.querySelector("nav");
+
+    if (menuToggle && nav) {
+        menuToggle.addEventListener("click", function() {
+            nav.classList.toggle("menu-aberto");
+        });
+    }
+
+    nav.addEventListener("click", function(e) {
+        if (e.target.closest("li")) {
+            nav.classList.remove("menu-aberto");
+        }
+    });
+});
 let noticiasCarregadas = false;
 
 function lerNoticias() {
+    const carousel = document.querySelector('.container-carousel');
+    console.log("carousel =", carousel);
     const container = document.getElementById("container");
 
+    if (!carousel){
+        console.error("Elemento .container-carousel não encontrado.");
+        return;
+    }
+
     if (!noticiasCarregadas) {
+        carousel.style.display = 'none';
+        container.innerHTML = "";
         carregarNoticias();
         noticiasCarregadas = true;
     } else {
         container.innerHTML = "";
+        carousel.style.display = 'block';
         noticiasCarregadas = false;
     }
 }
